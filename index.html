@@ -139,7 +139,10 @@
   /* toc */
   section{scroll-margin-top:64px;}
   .toc{position:sticky;top:0;z-index:40;background:var(--paper);box-shadow:0 6px 18px rgba(28,36,48,.10);border-bottom:1px solid var(--line);}
-  .toc-inner{display:flex;gap:8px;overflow-x:auto;padding:12px 24px;max-width:940px;margin:0 auto;scrollbar-width:none;}
+  .toc{display:flex;align-items:center;gap:6px;padding:0 10px;max-width:960px;margin:0 auto;}
+  .toc-inner{display:flex;gap:8px;overflow-x:auto;padding:12px 4px;flex:1 1 auto;min-width:0;scroll-behavior:smooth;scrollbar-width:none;}
+  .toc-btn{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid rgba(217,72,31,.45);background:var(--paper);color:var(--coral);font-size:22px;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(28,36,48,.12);font-family:'Inter',sans-serif;}
+  .toc-btn:hover{background:var(--coral);color:#fff;}
   .toc-inner::-webkit-scrollbar{display:none;}
   .toc a{flex:0 0 auto;font-size:14px;font-weight:600;padding:8px 16px;border:1px solid rgba(217,72,31,.35);border-radius:999px;background:rgba(217,72,31,.08);color:var(--coral);text-decoration:none;white-space:nowrap;}
   .toc a:hover{background:var(--coral);border-color:var(--coral);color:#fff;}
@@ -166,7 +169,7 @@
 </style>
 </head>
 <body>
-<nav class="toc"><div class="toc-inner"><a href="#s01">Giới thiệu</a><a href="#s02">Mục tiêu nghề nghiệp</a><a href="#s03">Kinh nghiệm</a><a href="#s04">Kỹ năng</a><a href="#s05">Quy trình làm việc</a><a href="#s06">Sản phẩm tiêu biểu</a><a href="#s07">Kịch bản tham khảo</a><a href="#s08">Video đã thực hiện</a><a href="#s09">Số liệu tăng trưởng</a><a href="#s10">Liên hệ</a></div></nav>
+<nav class="toc"><button class="toc-btn" data-dir="-1" aria-label="Cuộn sang trái">&lsaquo;</button><div class="toc-inner"><a href="#s01">Giới thiệu</a><a href="#s02">Mục tiêu nghề nghiệp</a><a href="#s03">Kinh nghiệm</a><a href="#s04">Kỹ năng</a><a href="#s05">Quy trình làm việc</a><a href="#s06">Sản phẩm tiêu biểu</a><a href="#s07">Kịch bản tham khảo</a><a href="#s08">Video đã thực hiện</a><a href="#s09">Số liệu tăng trưởng</a><a href="#s10">Liên hệ</a></div><button class="toc-btn" data-dir="1" aria-label="Cuộn sang phải">&rsaquo;</button></nav>
 
 <div class="wrap hero">
   <div class="hero-text">
@@ -381,6 +384,13 @@
     });
   });
   document.getElementById('lightboxClose').addEventListener('click', function(){ lb.classList.remove('open'); });
+
+  // scroll arrows for the section menu
+  document.querySelectorAll('.toc-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelector('.toc-inner').scrollBy({left: 160 * Number(b.getAttribute('data-dir')), behavior: 'smooth'});
+    });
+  });
   lb.addEventListener('click', function(e){ if(e.target === lb) lb.classList.remove('open'); });
 
 })();
